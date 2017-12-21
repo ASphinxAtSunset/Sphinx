@@ -50,13 +50,14 @@
         spring集成mybatis
     -->
 
-<!--
+<!-- 事务配置-->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
-    </bean>-->
+    </bean>
 
-    <!--    <bean id="getAppsConfHistory" class="com.htjc.configsweb.buss.history.getHistory.GetAppsConfHistory" >
+    <!-- 向类中注入值的写法
+    <bean id="getAppsConfHistory" class="com.htjc.configsweb.buss.history.getHistory.GetAppsConfHistory" >
             <property name="appsConfHistory">
                 <map>
                     <entry key="file" value-ref="saveHistoryByFile"/>
@@ -66,7 +67,7 @@
         </bean>-->
 
 
-   <!-- <tx:annotation-driven transaction-manager="transactionManager" />
+   <tx:annotation-driven transaction-manager="transactionManager" />
 
--->
+
 </beans>
