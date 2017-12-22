@@ -13,7 +13,7 @@
 
     <!-- base-package 如果多个，用“,”分隔 -->
     <!-- 启用包扫描功能，以便注册带有@controller、@Service、等注解的类成为spring的bean-->
-    <context:component-scan base-package="privt.gene.controller" />
+    <context:component-scan base-package="privt.gene" />
 
     <!-- maxUploadSize:文件上传的最大值以byte为单位 -->
     <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -65,9 +65,18 @@
                 </map>
             </property>
         </bean>-->
-
-
-   <tx:annotation-driven transaction-manager="transactionManager" />
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations" value="classpath:conf/mybatis/*.xml"></property>
+    </bean>
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="p" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>-->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
 
 </beans>
