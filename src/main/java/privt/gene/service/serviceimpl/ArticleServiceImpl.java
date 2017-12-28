@@ -30,4 +30,12 @@ public class ArticleServiceImpl implements ArticleService{
     public List<Article> search(String str) {
         return null;
     }
+    @Override
+    public Article queryById(String articleId){
+        //TODO 校验
+        //TODO 每详细查看一次。热度加1,用户第一次查看不加热度
+        //TODO 用户重复查看，本文章索引适度增加hot，本文章该用户感兴趣度增加
+        Article article = articleDao.queryById(articleId);
+        return article;
+    }
 }

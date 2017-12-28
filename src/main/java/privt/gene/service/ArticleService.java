@@ -15,4 +15,6 @@ public interface ArticleService {
     public void deleteArticle(Article article);
 
     public List<Article> search(String str);
+
+    public Article queryById(String articleId);
 }
