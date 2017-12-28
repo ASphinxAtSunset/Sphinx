@@ -11,6 +11,10 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+<form action="/testq" method="post">
+    用户名:<input type="text" name="name">
+    密码  :<input type="password" name="password">
+    <input type="submit">
+</form>
   </body>
 </html>

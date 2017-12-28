@@ -11,9 +11,18 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
+
+    <!-- 开启自动注入-->
+    <!--<context:annotation-config />-->
+<!--    <context:component-scan base-package="privt.gene" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+    </context:component-scan>-->
     <!-- base-package 如果多个，用“,”分隔 -->
     <!-- 启用包扫描功能，以便注册带有@controller、@Service、等注解的类成为spring的bean-->
-    <context:component-scan base-package="privt.gene" />
+    <context:component-scan base-package="privt.gene.service" />
+
 
     <!-- maxUploadSize:文件上传的最大值以byte为单位 -->
     <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -51,8 +60,7 @@
     -->
 
 <!-- 事务配置-->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
@@ -66,17 +74,34 @@
             </property>
         </bean>-->
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- 自动扫描mapping.xml文件 -->
+<!--    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:conf/mybatis/*.xml"></property>
-    </bean>
-    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
-<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="p" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-    </bean>-->
-    <tx:annotation-driven transaction-manager="transactionManager" />
 
+        <property name="mapperLocations" value="classpath:conf/mybatis/mybatis.xml"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />-->
+
+
+    <!-- 3.配置SqlSessionFactory对象 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+        <property name="configLocation" value="classpath:conf/mybatis/mybatis-config.xml" /><!--classpath:mybatis-config.xml-->
+        <!-- 扫描entity包 使用别名 -->
+        <property name="typeAliasesPackage" value="privt.gene.model.*" />
+        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+        <property name="mapperLocations" value="classpath:conf/mybatis/mapper/*.xml" />
+    </bean>
+
+    <!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <!-- 给出需要扫描Dao接口包 -->
+        <property name="basePackage" value="privt.gene.dao" />
+    </bean>
 
 </beans>

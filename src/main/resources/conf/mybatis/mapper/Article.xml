@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="privt.gene.dao.ArticleDao">
+    <resultMap  id="article" type="privt.gene.dto.Article">
+        <id column="articleId" property="article_id" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="userId" property="user_id" jdbcType="VARCHAR" />
+        <result column="userName" property="user_name" jdbcType="VARCHAR" />
+        <result column="indexList" property="index_list" jdbcType="VARCHAR" />
+        <!--本页面浏览次数-->
+        <!--是否考虑加入针对article内容标签 如文笔加分，及时性加分，可信度加分等-->
+        <result column="dupcount" property="dup_count" jdbcType="VARCHAR" />
+        <result column="date" property="date" jdbcType="DATE" />
+    </resultMap>
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <!--返回所有具有相同index(复数)的index列表，需要动态查询，参数不固定；考虑是否根据热度建立索引顺序-->
+    <select id="search" >
+        <!-- 具体的sql -->
+    </select>
+    <!--获取一篇文章所有信息-->
+    <select id="queryById" >
+        <!-- 具体的sql -->
+        SELECT
+        *
+        FROM
+        article
+        WHERE
+        article_id = #{articleId}
+    </select>
+    <delete id="deleteArticle" parameterType="privt.gene.dto.Article">
+            delete from article where id=#{article.articleId}
+    </delete>
+
+    <insert id="insertArticle" parameterType="privt.gene.dto.Article">
+
+
+    </insert>
+</mapper>

@@ -1,5 +1,6 @@
 package privt.gene.dao;
 
+import org.springframework.stereotype.Repository;
 import privt.gene.model.Article;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface ArticleDao {
 
     public List<Article> search(String str);
 
+    public Article queryById(String articleId);
 }

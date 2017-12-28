@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="privt.gene.dao.UserDao">
+    <resultMap  id="user" type="privt.gene.dto.User">
+        <id column="userId" property="user_id" jdbcType="VARCHAR" />
+        <result column="userName" property="user_name" jdbcType="VARCHAR" />
+        <result column="userPasswd" property="user_passwd" jdbcType="VARCHAR" />
+    </resultMap>
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <select id="login" resultMap="user" >
+        <!-- 具体的sql -->
+        SELECT
+            *
+        FROM
+            user
+        WHERE
+        user_passwd = #{password}
+        AND
+        user_name = #{userName}
+    </select>
+</mapper>
