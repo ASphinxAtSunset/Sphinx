@@ -1,8 +1,8 @@
 package privt.gene.utils.annotation;
 
-import privt.gene.utils.apsect.enums.ArgsPrintTypeEnum;
-import privt.gene.utils.apsect.enums.LogLevel;
-import privt.gene.utils.apsect.enums.ResultPrintTypeEnum;
+import privt.gene.utils.aspect.enums.ArgsPrintTypeEnum;
+import privt.gene.utils.aspect.enums.LogLevel;
+import privt.gene.utils.aspect.enums.ResultPrintTypeEnum;
 
 import java.lang.annotation.*;
 

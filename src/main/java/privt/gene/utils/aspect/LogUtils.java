@@ -1,7 +1,7 @@
-package privt.gene.utils.apsect;
+package privt.gene.utils.aspect;
 
 import org.slf4j.Logger;
-import privt.gene.utils.apsect.enums.LogLevel;
+import privt.gene.utils.aspect.enums.LogLevel;
 
 /**
  * Created by Gene on 2017/12/21.

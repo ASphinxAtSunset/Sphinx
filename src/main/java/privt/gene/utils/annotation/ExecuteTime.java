@@ -1,6 +1,6 @@
 package privt.gene.utils.annotation;
 
-import privt.gene.utils.apsect.enums.LogLevel;
+import privt.gene.utils.aspect.enums.LogLevel;
 
 import java.lang.annotation.*;
 

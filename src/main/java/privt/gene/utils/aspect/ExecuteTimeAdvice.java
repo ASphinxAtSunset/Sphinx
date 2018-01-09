@@ -1,4 +1,4 @@
-package privt.gene.utils.apsect;
+package privt.gene.utils.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -9,18 +9,28 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import privt.gene.utils.annotation.ExecuteTime;
+import privt.gene.utils.aspect.enums.LogLevel;
 
 /**
  * Created by Gene on 2017/12/21.
  */
 @Aspect
 public class ExecuteTimeAdvice {
-    @Pointcut("execution(public * privt.gene..*.*(..))&&@annotation(executeTime)")
+    @Pointcut("@annotation(executeTime)")
+//    @Pointcut("execution(public * privt.gene..*.*(..))&&@annotation(executeTime)")
     public void pointcut(ExecuteTime executeTime){
 
     }
+    @Before("pointcut(executeTime)")
+    public void doBefore(JoinPoint joinPoint, ExecuteTime executeTime){
+        final Logger LOGGER = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+        System.out.println("进入方法");
+    }
+
+
     @Around("pointcut(executeTime)")
-    public Object doBefore(ExecuteTime executeTime, ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object doBefore(ProceedingJoinPoint joinPoint,ExecuteTime executeTime) throws Throwable {
+//    public Object doBefore(ExecuteTime executeTime, ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();//开始时间
         final Logger LOGGER = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         try {
@@ -37,6 +47,22 @@ public class ExecuteTimeAdvice {
             } else {
                 LogUtils.log(LOGGER, executeTime.logLevel(), executeTime.msg() + executeTime.postfix(), duration);
             }
+        }
+    }
+
+    public static void log(Logger LOGGER, LogLevel logLevel, String msg) {
+        if (logLevel == LogLevel.debug) {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug(msg);
+            }
+        } else if (logLevel == LogLevel.info) {
+            LOGGER.info(msg);
+        } else if (logLevel == LogLevel.warning) {
+            LOGGER.warn(msg);
+        } else if (logLevel == LogLevel.error) {
+            LOGGER.error(msg);
+        } else {
+            LOGGER.info(msg);
         }
     }
 }

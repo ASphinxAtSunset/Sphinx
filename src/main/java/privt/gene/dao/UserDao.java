@@ -8,6 +8,7 @@ import privt.gene.dto.User;
 /**
  * Created by Gene on 2017/12/22.
  */
+@Service
 public interface UserDao {
 
     //public User login(User user);

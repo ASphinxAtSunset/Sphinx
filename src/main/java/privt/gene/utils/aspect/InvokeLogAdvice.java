@@ -1,15 +1,14 @@
-package privt.gene.utils.apsect;
+package privt.gene.utils.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import privt.gene.utils.annotation.InvokeLog;
-import privt.gene.utils.apsect.LogUtils;
-import privt.gene.utils.apsect.enums.ArgsPrintTypeEnum;
-import privt.gene.utils.apsect.enums.ResultPrintTypeEnum;
+import privt.gene.utils.aspect.enums.ArgsPrintTypeEnum;
+import privt.gene.utils.aspect.enums.ResultPrintTypeEnum;
 
-import static privt.gene.utils.apsect.LogUtils.log;
+import static privt.gene.utils.aspect.LogUtils.log;
 
 /**
  * Created by Gene on 2017/12/21.
@@ -17,7 +16,7 @@ import static privt.gene.utils.apsect.LogUtils.log;
  */
 @Aspect
 public class InvokeLogAdvice {
-    @Pointcut("execution(public * privt.gene..*.*(..))&&@annotation(invokeLog)")
+    @Pointcut("@annotation(invokeLog)")
     public void pointcut(InvokeLog invokeLog){
 
     }

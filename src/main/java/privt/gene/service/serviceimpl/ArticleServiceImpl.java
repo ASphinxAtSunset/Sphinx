@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Gene on 2017/12/22.
  */
-@Service
+@Service("articleServiceImpl")
 public class ArticleServiceImpl implements ArticleService{
     @Autowired
     ArticleDao articleDao;
